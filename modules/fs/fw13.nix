@@ -17,29 +17,31 @@
         content = {
           type = "gpt";
           partitions = {
-            # boot = {
-            #   name = "boot";
-            #   size = "1M";
-            #   type = "EF02";
-            # };
+            boot = {
+              size = "1G";
+              name = "boot";
+              type = "EF02";# this is needed by fedora
+            };
             ESP = {
               size = "1G";
               type = "EF00";
               content = {
-                extraArgs = [ "-nBOOT" "-F32" ];
+                extraArgs = [ "-nEFIBOOT" "-F32" ];
                 type = "filesystem";
                 format = "vfat";
                 mountpoint = "/boot";
                 mountOptions = [ "umask=0077" ];
               };
             };
-            swapfs = {
-              size = "32G";
-              content = {
-                type = "swap";
-                priority = 100; # prefer to encrypt as long as we have space for it
-              };
-            };
+                swapfs = {
+                  size = "32G";
+                  content = {
+                    extraArgs = [ "-L SWAPPY" ];
+
+                    type = "swap";
+                    resumeDevice = true;
+                  };
+                };
             luks = {
               size = "100%";
               content = {
@@ -53,7 +55,7 @@
                 #additionalKeyFiles = [ "/tmp/additionalSecret.key" ];
                 content = {
                   type = "btrfs";
-                  extraArgs = [ "-f" ];
+                  extraArgs = [ "-f" "-LBURRO" ];
                   subvolumes = {
                     "/root_fedora" = {
                       # this should only be mounted if on fedora

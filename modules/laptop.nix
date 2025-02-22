@@ -87,7 +87,7 @@
         };
       };
     };
-    tlp.enable = true;
+    tlp.enable = false;
     blueman.enable = true;
     dbus.enable = true;
     pipewire = {
