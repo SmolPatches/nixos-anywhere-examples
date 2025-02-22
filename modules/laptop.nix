@@ -6,6 +6,7 @@
 , inputs
 , ...
 }: {
+  #boot.loader.grub.device = "/dev/disk/by-label/BOOT";
 
   networking = {
     networkmanager.enable = true;

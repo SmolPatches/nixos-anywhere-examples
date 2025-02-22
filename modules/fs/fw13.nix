@@ -8,11 +8,13 @@
         content = {
           type = "gpt";
           partitions = {
+            # for fedora / other linux
             boot = {
               name = "boot";
               size = "1G";
               content = {
               extraArgs = [ "-L BOOT" ];
+              mountpoint = "/boot";
               type = "filesystem";
               format = "ext4";
               };
@@ -23,9 +25,9 @@
               content = {
                 type = "filesystem";
                 format = "vfat";
-                mountpoint = "/boot";
+                mountpoint = "/boot/efi";
                 extraArgs = [ "-nEFIBOOT" "-F32" ];
-                mountOptions = [ "umask=0077" ];
+                #mountOptions = [ "umask=0077" ];
               };
             };
             luks = {
