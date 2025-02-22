@@ -17,7 +17,7 @@
     #splashImage = ./assets/lain.png;
     splashImage = ./assets/kami.png;
     gfxmodeBios = "2880x1920";
-    device = "nodev";
+    device = "/dev/disk/by-partlabel/disk-main-boot";
     version = 2;
     useOSProber = true;
     enable = true;
