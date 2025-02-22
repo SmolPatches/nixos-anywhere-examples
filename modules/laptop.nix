@@ -29,7 +29,7 @@
       ];
       shell = pkgs.zsh;
       isNormalUser = true;
-      openssh.authorizedKeys.keyFiles = let ssh_keys = (builtins.fetchurl { url = "https://github.com/SmolPatches.keys"; sha256 = "0r8zl19lg67r7bmqqibxf46vb1081l8z7c9hr9pyc617123nrpfg"; }); in [ ssh_keys ]; # point key files to the thing in nix_store
+      openssh.authorizedKeys.keyFiles = let ssh_keys = (builtins.fetchurl { url = "https://github.com/SmolPatches.keys"; sha256 = "0l3yhmwrv72kslpb3z84lajq4w7zqfhjm6ry4vp6vryfvka8i6zl"; }); in [ ssh_keys ]; # point key files to the thing in nix_store
       packages = with pkgs; [
         obsidian
         zip
