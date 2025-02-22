@@ -1,3 +1,4 @@
+
 {
   disko.devices = {
     disk = {
@@ -7,6 +8,11 @@
         content = {
           type = "gpt";
           partitions = {
+            boot = {
+              name = "boot";
+              size = "1G";
+              type = "EF02"; # fedora will format this
+            };
             ESP = {
               size = "1G";
               type = "EF00";
@@ -14,7 +20,7 @@
                 type = "filesystem";
                 format = "vfat";
                 mountpoint = "/boot";
-                extraArgs = [ "-nBOOT" "-F32" ];
+                extraArgs = [ "-nEFIBOOT" "-F32" ];
                 mountOptions = [ "umask=0077" ];
               };
             };
@@ -52,15 +58,15 @@
             };
           };
           # fedora on a ext4
-          fedora = {
-            size = "80G";
-            content = {
-              extraArgs = [ "-LFEDORA" ];
-              type = "filesystem";
-              format = "ext4";
-              #mountpoint = "";
-            };
-          };
+          # fedora = {
+          #   size = "80G";
+          #   content = {
+          #     extraArgs = [ "-LFEDORA" ];
+          #     type = "filesystem";
+          #     format = "ext4";
+          #     #mountpoint = "";
+          #   };
+          # };
           # btrfs w/ main stuff
           nixos = {
             size = "100%";
@@ -71,6 +77,14 @@
                 # this should only be mounted if on nixos
                 "/root_nixos" = {
                   mountpoint = "/";
+                  mountOptions = [
+                    "compress=zstd"
+                    "noatime"
+                  ];
+                };
+                # where fedora root will live
+                "/root_fedora" = {
+                  # mountpoint = "/";
                   mountOptions = [
                     "compress=zstd"
                     "noatime"
