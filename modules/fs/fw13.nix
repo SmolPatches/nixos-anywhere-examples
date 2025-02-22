@@ -11,7 +11,11 @@
             boot = {
               name = "boot";
               size = "1G";
-              type = "EF02"; # fedora will format this
+              content = {
+              extraArgs = [ "-L BOOT" ];
+              type = "filesystem";
+              format = "ext4";
+              };
             };
             ESP = {
               size = "1G";
@@ -68,11 +72,11 @@
           #   };
           # };
           # btrfs w/ main stuff
-          nixos = {
+          "BTRFS" = {
             size = "100%";
             content = {
               type = "btrfs";
-              extraArgs = [ "-f" "-L NIXOS" ];
+              extraArgs = [ "-f" "-L BURRO" ];
               subvolumes = {
                 # this should only be mounted if on nixos
                 "/root_nixos" = {
@@ -85,10 +89,10 @@
                 # where fedora root will live
                 "/root_fedora" = {
                   # mountpoint = "/";
-                  mountOptions = [
-                    "compress=zstd"
-                    "noatime"
-                  ];
+                  # mountOptions = [
+                  #   "compress=zstd"
+                  #   "noatime"
+                  # ];
                 };
                 # shared contents between fedora and nixos
                 "shared" = {
