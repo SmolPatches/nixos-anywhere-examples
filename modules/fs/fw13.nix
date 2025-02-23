@@ -8,25 +8,14 @@
         content = {
           type = "gpt";
           partitions = {
-            # for fedora / other linux
-            boot = {
-              name = "boot";
-              size = "1G";
-              content = {
-              extraArgs = [ "-L BOOT" ];
-              mountpoint = "/boot";
-              type = "filesystem";
-              format = "ext4";
-              };
-            };
             ESP = {
-              size = "1G";
+              size = "4G";
               type = "EF00";
               content = {
                 type = "filesystem";
                 format = "vfat";
-                mountpoint = "/boot/efi";
-                extraArgs = [ "-nEFIBOOT" "-F32" ];
+                mountpoint = "/boot";
+                extraArgs = [ "-nEFI" "-F32" ];
                 #mountOptions = [ "umask=0077" ];
               };
             };
@@ -63,18 +52,8 @@
               resumeDevice = true;
             };
           };
-          # fedora on a ext4
-          # fedora = {
-          #   size = "80G";
-          #   content = {
-          #     extraArgs = [ "-LFEDORA" ];
-          #     type = "filesystem";
-          #     format = "ext4";
-          #     #mountpoint = "";
-          #   };
-          # };
           # btrfs w/ main stuff
-          "BTRFS" = {
+           os_2 = {
             size = "100%";
             content = {
               type = "btrfs";
@@ -88,15 +67,14 @@
                     "noatime"
                   ];
                 };
-                # where fedora root will live
-                "/root_fedora" = {
-                  # mountpoint = "/";
-                  # mountOptions = [
-                  #   "compress=zstd"
-                  #   "noatime"
-                  # ];
+                "/root_second" = {
+                  mountpoint = "/";
+                  mountOptions = [
+                    "compress=zstd"
+                    "noatime"
+                  ];
                 };
-                # shared contents between fedora and nixos
+                #shared contents between fedora and nixos
                 "shared" = {
                   mountpoint = "/home/Shared";
                   mountOptions = [

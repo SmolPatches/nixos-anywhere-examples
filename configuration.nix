@@ -11,7 +11,7 @@
     ./modules/fs/fw13.nix
   ];
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
-  boot.loader.efi.efiSysMountPoint = "/boot/efi"; # for dual booting 2 Linux Distros
+  boot.loader.efi.efiSysMountPoint = "/boot"; # for dual booting 2 Linux Distros
   boot.loader.systemd-boot.enable = true;
   # boot.loader.grub = {
   #   # no need to set devices, disko will add all devices that have a EF02 partition to the list already
