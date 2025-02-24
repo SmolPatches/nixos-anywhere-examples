@@ -39,8 +39,27 @@ in
     wofi
   ] ++ (with nodePackages; [ bash-language-server vscode-langservers-extracted ]);
   programs = {
+    ssh = {
+    extraConfig = ''
+      Host github.com
+        User git
+        IdentityFile ${pkgs.writeText "yubi.pub" "ecdsa-sha2-nistp384 AAAAE2VjZHNhLXNoYTItbmlzdHAzODQAAAAIbmlzdHAzODQAAABhBPo6QV6lVNogLDI2yNPN3nzWd7aDYGgW4ds5eRmjKc6TgTUNJpbDT0W9eZgBNBOf4kgt3X6wvKttR73exPMrI/lWRyqY9jO4pZYMqUeLY8tuWbjXiHktNWZUQ44mnwSK/A== PIV AUTH pubkey
+"}
+        PKCS11Provider ${pkgs.opensc}/lib/opensc-pkcs11.so
+        UseKeychain yes
+        AddKeysToAgent yes
+    '';
+    };
     git = {
       enable = true;
+      signing = {
+        format = "ssh";
+        #signByDefault = true;
+        # add provider to ssh config
+        #signer.signer = "${pkgs.opensc}/lib/opensc-pkcs11.so"; # tbd pkcs11 from yubikey or opensc
+        key = "ecdsa-sha2-nistp384 AAAAE2VjZHNhLXNoYTItbmlzdHAzODQAAAAIbmlzdHAzODQAAABhBPo6QV6lVNogLDI2yNPN3nzWd7aDYGgW4ds5eRmjKc6TgTUNJpbDT0W9eZgBNBOf4kgt3X6wvKttR73exPMrI/lWRyqY9jO4pZYMqUeLY8tuWbjXiHktNWZUQ44mnwSK/A== PIV AUTH pubkey
+";
+      };
       ignores = [ "*.*~" "#*#" ];
       userEmail = ""; # sops secret
       userName = "smolpatches";

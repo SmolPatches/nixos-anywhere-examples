@@ -108,6 +108,10 @@
     };
   };
   programs = {
+    ssh = {
+      agentTimeout = "1h";
+      startAgent = true;
+    };
     zsh.enable = true;
     git.enable = true;
     waybar.enable = true;
