@@ -5,9 +5,14 @@
 , pkgs
 , inputs
 , ...
-}: {
+}: let debian_entry = "debian.conf" ''
+title   Debian
+linux   /vmlinuz-linux-6.1.0-31-amd64
+initrd  /initrd.img-6.1.0-31-amd64
+#options root=UUID=xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx rw
+''; in {
   #boot.loader.grub.device = "/dev/disk/by-label/BOOT";
-
+  boot.loader.systemd-boot.extraEntries = debian_entry;
   networking = {
     networkmanager.enable = true;
     hostName = "smolfw13";
