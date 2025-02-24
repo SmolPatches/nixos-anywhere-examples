@@ -5,12 +5,12 @@
 , pkgs
 , inputs
 , ...
-}: let debian_entry = "debian.conf" ''
+}: let debian_entry = { "debian.conf" = ''
 title   Debian
 linux   /vmlinuz-linux-6.1.0-31-amd64
 initrd  /initrd.img-6.1.0-31-amd64
 #options root=UUID=xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx rw
-''; in {
+'';}; in {
   #boot.loader.grub.device = "/dev/disk/by-label/BOOT";
   boot.loader.systemd-boot.extraEntries = debian_entry;
   networking = {
@@ -35,7 +35,7 @@ initrd  /initrd.img-6.1.0-31-amd64
       ];
       shell = pkgs.zsh;
       isNormalUser = true;
-      openssh.authorizedKeys.keyFiles = let ssh_keys = (builtins.fetchurl { url = "https://github.com/SmolPatches.keys"; sha256 = "0l3yhmwrv72kslpb3z84lajq4w7zqfhjm6ry4vp6vryfvka8i6zl"; }); in [ ssh_keys ]; # point key files to the thing in nix_store
+      openssh.authorizedKeys.keyFiles = let ssh_keys = (builtins.fetchurl { url = "https://github.com/SmolPatches.keys"; sha256 = "19x3p8ddrnvcsr7bfqnzbwn717crqmhv2q194ib70vbjb5y3nbxi"; }); in [ ssh_keys ]; # point key files to the thing in nix_store
       packages = with pkgs; [
         obsidian
         zip
