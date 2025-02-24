@@ -9,7 +9,7 @@
           type = "gpt";
           partitions = {
             ESP = {
-              size = "4G";
+              size = "6G"; # just incase we use some ukis
               type = "EF00";
               content = {
                 type = "filesystem";
@@ -68,11 +68,11 @@
                   ];
                 };
                 "/root_second" = {
-                  mountpoint = "/";
-                  mountOptions = [
-                    "compress=zstd"
-                    "noatime"
-                  ];
+                  #mountpoint = "/";
+                  # mountOptions = [
+                  #   "compress=zstd"
+                  #   "noatime"
+                  # ];
                 };
                 #shared contents between fedora and nixos
                 "shared" = {
