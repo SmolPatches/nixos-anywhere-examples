@@ -16,13 +16,13 @@
 
 {
   # find a way to automate a way the kernel versions( maybe with UKI )
-  boot.loader.grub.extraEntries = ''
-    menuentry "Debian" {
-      search --set=root --label EFI
-      linux /vmlinuz-6.1.0-31-amd64 root=/dev/mapper/pool-os_2 rootflags=subvol=/root_second rw
-      initrd /initrd.img-6.1.0-31-amd64
-    }
-  '';
+  # boot.loader.grub.extraEntries = ''
+  #   menuentry "Debian" {
+  #     search --set=root --label EFI
+  #     linux /vmlinuz-6.1.0-31-amd64 root=/dev/mapper/pool-os_2 rootflags=subvol=/root_second rw
+  #     initrd /initrd.img-6.1.0-31-amd64
+  #   }
+  # '';
   networking = {
     networkmanager.enable = true;
     hostName = "smolfw13";

@@ -11,7 +11,7 @@
   ];
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
   #boot.loader.efi.efiSysMountPoint = "/boot"; # for dual booting 2 Linux Distros
-  #boot.loader.efi.canTouchEfiVariables  = true;
+  boot.loader.efi.canTouchEfiVariables  = true;
   boot.loader.grub = {
     # no need to set devices, disko will add all devices that have a EF02 partition to the list already
     splashImage = ./assets/kami.png;
