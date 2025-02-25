@@ -5,14 +5,24 @@
 , pkgs
 , inputs
 , ...
-}: let debian_entry = { "debian.conf" = ''
-title   Debian
-linux   /vmlinuz-linux-6.1.0-31-amd64
-initrd  /initrd.img-6.1.0-31-amd64
-#options root=UUID=xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx rw
-'';}; in {
-  #boot.loader.grub.device = "/dev/disk/by-label/BOOT";
-  boot.loader.systemd-boot.extraEntries = debian_entry;
+}:
+# let debian_entry = { "debian.conf" = ''
+# title   Debian
+# linux   /vmlinuz-linux-6.1.0-31-amd64
+# initrd  /initrd.img-6.1.0-31-amd64
+# #options root=UUID=xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx rw
+# '';};
+# in
+
+{
+  # find a way to automate a way the kernel versions( maybe with UKI )
+  boot.loader.grub.extraEntries = ''
+    menuentry "Debian" {
+      search --set=root --label EFI
+      linux /vmlinuz-6.1.0-31-amd64 root=/dev/mapper/pool-os_2 rootflags=subvol=/root_second rw
+      initrd /initrd.img-6.1.0-31-amd64
+    }
+  '';
   networking = {
     networkmanager.enable = true;
     hostName = "smolfw13";
@@ -93,7 +103,8 @@ initrd  /initrd.img-6.1.0-31-amd64
         };
       };
     };
-    #tlp.enable = true;
+    power-profiles-daemon.enable = lib.mkForce false; # this conflicts w/ tlp
+    tlp.enable = true;
     blueman.enable = true;
     dbus.enable = true;
     pipewire = {
