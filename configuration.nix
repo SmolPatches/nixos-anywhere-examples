@@ -8,7 +8,6 @@
     (modulesPath + "/installer/scan/not-detected.nix")
     (modulesPath + "/profiles/qemu-guest.nix")
     ./modules/common.nix
-    ./modules/fs/fw13.nix
   ];
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
   #boot.loader.efi.efiSysMountPoint = "/boot"; # for dual booting 2 Linux Distros
