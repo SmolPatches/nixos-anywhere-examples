@@ -7,7 +7,10 @@
     allowUnfree = true;
     allowBroken = false;
   };
-  #{ config, pkgs, lib }: {
+  time = {
+    timeZone = "Europe/Rome";
+    hardwareClockInLocalTime = true; # use that bios
+  };
   security.sudo = {
     enable = true;
     execWheelOnly = true;
@@ -18,7 +21,6 @@
       enable = true;
       nssmdns4 = true;
     };
-    automatic-timezoned.enable = true;
     openssh = {
       enable = true;
       settings = {

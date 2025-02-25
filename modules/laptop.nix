@@ -6,14 +6,6 @@
 , inputs
 , ...
 }:
-# let debian_entry = { "debian.conf" = ''
-# title   Debian
-# linux   /vmlinuz-linux-6.1.0-31-amd64
-# initrd  /initrd.img-6.1.0-31-amd64
-# #options root=UUID=xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx rw
-# '';};
-# in
-
 {
   # find a way to automate a way the kernel versions( maybe with UKI )
   boot.loader.grub.extraEntries = ''
