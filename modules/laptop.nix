@@ -14,6 +14,11 @@
       linux /vmlinuz-6.1.0-31-amd64 root=/dev/mapper/pool-os_2 rootflags=subvol=/root_second rw
       initrd /initrd.img-6.1.0-31-amd64
     }
+    menuentry "DebianBPO" {
+      search --set=root --label EFI
+      linux /vmlinuz-6.12.12+bpo-amd64 root=/dev/mapper/pool-os_2 rootflags=subvol=/root_second rw
+      initrd /initrd.img-6.12.12+bpo-amd64
+    }
   '';
   networking = {
     networkmanager.enable = true;

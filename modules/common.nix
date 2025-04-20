@@ -17,6 +17,13 @@
     wheelNeedsPassword = false;
   };
   services = {
+    emacs = {
+      package = pkgs.emacs30-pgtk;
+      enable = true;
+      install = true;
+      startWithGraphical = true;
+      defaultEditor = true;
+    };
     avahi = {
       enable = true;
       nssmdns4 = true;
